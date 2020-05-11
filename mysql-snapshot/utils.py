@@ -11,9 +11,12 @@ import traceback
 import subprocess
 import psutil
 import logging
+import requests
+import json
 from collections import Counter
 
 # logging配置
+
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s %(filename)s %(levelname)s %(message)s',
                     datefmt='%a,%d %b %Y %H:%M:%S',
@@ -546,3 +549,17 @@ def get_log_dir(dbaction):
     #slow_log = data_dir + slow_log
     #error_log = data_dir + error_log.split('/')[1]
     return slow_log, error_log
+
+
+def send_dingding(token, md):
+    dingdingUrl = "https://oapi.dingtalk.com/robot/send?access_token="
+    try:
+        if isinstance(md, dict):
+            r = requests.post(dingdingUrl+token, headers={"Content-Type": "application/json"},
+                              data=(json.dumps(md)).encode('utf-8'))
+        else:
+            r = requests.post(dingdingUrl+token, headers={"Content-Type": "application/json"},
+                              data=(md).encode('utf-8'))
+        print(r.status_code, r.text)
+    except Exception as e:
+        print(e)

@@ -84,6 +84,9 @@ class Snapshot(object):
                     thread_obj.join()
 
                 lock.release()
+
+                send_dingding("06adf7940590f0119ca3dc2441075fddf1be692ebc952e14b2f9bab57841e4e6",
+                              '{"msgtype": "markdown", "markdown": {"title": "性能快照已生成", "text": "%s"}}' % (time_now, "触发条件:", collect_flag))
             else:
                 print(time_now, "未达触发条件")
 
