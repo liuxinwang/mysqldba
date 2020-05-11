@@ -7,8 +7,8 @@
 # Date:         2019-04-17
 # -------------------------------------------------------------------------------
 
-from utils import *
-from db_pool import DBAction
+from .utils import *
+from .db_pool import DBAction
 from threading import Lock
 
 
@@ -58,8 +58,9 @@ class Snapshot(object):
             collect_flag = check_conditions(check_dict, condition_dict)
 
             time_now = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
-            print("触发条件:", collect_flag)
+
             if collect_flag:
+                print(time_now, "触发条件:", collect_flag)
                 filedir = create_unique_dir(self.stordir, time_now)
                 lock.acquire()
                 thread_objs = []
@@ -83,6 +84,8 @@ class Snapshot(object):
                     thread_obj.join()
 
                 lock.release()
+            else:
+                print(time_now, "未达触发条件")
 
             time.sleep(self.interval)
 
