@@ -59,6 +59,7 @@ class Snapshot(object):
 
             time_now = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
             filedir = create_unique_dir(self.stordir, time_now)
+            print("触发条件:", collect_flag)
             if collect_flag:
                 lock.acquire()
                 thread_objs = []
