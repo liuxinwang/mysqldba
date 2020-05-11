@@ -7,8 +7,8 @@
 # Date:         2019-04-17
 # -------------------------------------------------------------------------------
 
-from .utils import *
-from .db_pool import DBAction
+from utils import *
+from db_pool import DBAction
 from threading import Lock
 
 
