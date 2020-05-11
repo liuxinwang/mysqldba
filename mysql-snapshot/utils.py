@@ -433,10 +433,11 @@ def system_vmstat(filedir):
     logging.info('开始记录vmstat信息')
     cmd = 'vmstat 1 >> %s/vmstat' % filedir
     pro = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    func_name = sys._getframe().f_code.co_name
     if pro.poll() != None:
-        ErrCode = "error"
+        ErrCode = func_name + ": " + "error"
     else:
-        ErrCode = "success"
+        ErrCode = func_name + ": " + "success"
         time.sleep(5)
     print(ErrCode)
     pro.terminate()
