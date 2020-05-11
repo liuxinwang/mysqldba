@@ -81,7 +81,7 @@ class Snapshot(object):
                 for thread_obj in thread_objs:
                     thread_obj.join()
 
-            lock.release()
+                lock.release()
 
             time.sleep(self.interval)
 
