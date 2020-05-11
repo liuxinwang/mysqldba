@@ -58,9 +58,9 @@ class Snapshot(object):
             collect_flag = check_conditions(check_dict, condition_dict)
 
             time_now = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
-            filedir = create_unique_dir(self.stordir, time_now)
             print("触发条件:", collect_flag)
             if collect_flag:
+                filedir = create_unique_dir(self.stordir, time_now)
                 lock.acquire()
                 thread_objs = []
                 mysql_func_list = [mysql_variables, mysql_status, mysql_innodb_status, mysql_slave_status, mysql_processlist, mysql_transactions, mysql_lock_info]
