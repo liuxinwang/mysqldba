@@ -240,7 +240,7 @@ def mysql_transactions(dbaction, filedir):
 def mysql_lock_info(dbaction, filedir):
     filename = filedir + '/' + 'innodb_locks'
     desc_list = []
-    sql = 'select * from sys.innodb_lock_waits'
+    sql = 'select * from sys.x$innodb_lock_waits'
     try:
         logging.info('开始记录innodb locks')
         lock_obj, desc = dbaction.data_inquiry(sql)
