@@ -349,10 +349,11 @@ def system_top(filedir):
     logging.info('开始记录top输出')
     cmd = 'top -bn5 >> /%s/top' % filedir
     pro = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    func_name = sys._getframe().f_code.co_name
     if pro.poll() != None:
-        ErrCode = "error"
+        ErrCode = func_name + ": " + "error"
     else:
-        ErrCode = "success"
+        ErrCode = func_name + ": " + "success"
         time.sleep(5)
     pro.terminate()
     print(ErrCode)
@@ -362,10 +363,11 @@ def system_iostat(filedir):
     logging.info('开始记录iostat信息')
     cmd = 'iostat -m -x 1 >> /%s/iostat' % filedir
     pro = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    func_name = sys._getframe().f_code.co_name
     if pro.poll() != None:
-        ErrCode = "error"
+        ErrCode = func_name + ": " + "error"
     else:
-        ErrCode = "success"
+        ErrCode = func_name + ": " + "success"
         time.sleep(5)
     pro.terminate()
     print(ErrCode)
@@ -375,10 +377,11 @@ def system_mpstat(filedir):
     logging.info('开始记录mpstat信息')
     cmd = 'mpstat -I SUM -P ALL 1 >> /%s/mpstat' % filedir
     pro = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    func_name = sys._getframe().f_code.co_name
     if pro.poll() != None:
-        ErrCode = "error"
+        ErrCode = func_name + ": " + "error"
     else:
-        ErrCode = "success"
+        ErrCode = func_name + ": " + "success"
         time.sleep(5)
     pro.terminate()
     print(ErrCode)
@@ -388,10 +391,11 @@ def system_tcpdump(filedir):
     logging.info('开始记录tcpdump信息')
     cmd = 'tcpdump -i any -s 4096 -w /%s/tcpdump port 3306' % filedir
     pro = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    func_name = sys._getframe().f_code.co_name
     if pro.poll() != None:
-        ErrCode = "error"
+        ErrCode = func_name + ": " + "error"
     else:
-        ErrCode = "success"
+        ErrCode = func_name + ": " + "success"
         time.sleep(5)
     pro.terminate()
     print(ErrCode)
@@ -538,6 +542,6 @@ def get_log_dir(dbaction):
         else:
             data_dir = item[1]
 
-    slow_log = data_dir + slow_log
-    error_log = data_dir + error_log.split('/')[1]
+    #slow_log = data_dir + slow_log
+    #error_log = data_dir + error_log.split('/')[1]
     return slow_log, error_log
